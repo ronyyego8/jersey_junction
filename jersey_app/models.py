@@ -66,6 +66,14 @@ class Cart(models.Model):
     @property
     def total_price(self):
         return self.quantity * self.product.price
+    
+class Favorite(models.Model):
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+
+    def __str__(self):
+        return f"{self.user.username}'s favorite: {self.product.name}"    
 
 
 STATUS_CHOICES = (

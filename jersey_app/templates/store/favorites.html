@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <!-- HERO SECTION-->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="h2 text-uppercase mb-0">Favorites</h1>
+                </div>
+                <div class="col-lg-6 text-lg-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+                            <li class="breadcrumb-item"><a href="{% url 'jersey_app:home' %}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Favorites</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if favorites %}
+    <section class="py-5">
+        <h2 class="h5 text-uppercase mb-4">Favorite Items</h2>
+
+        {% include 'partials/_messages.html' %}
+
+        <div class="row">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <!-- FAVORITES TABLE-->
+                <div class="table-responsive mb-4">
+                    <table class="table">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Product</strong></th>
+                                <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Price</strong></th>
+                                <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Actions</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for favorite_item in favorites %}
+                            <tr>
+                                <th class="pl-0 border-0" scope="row">
+                                    <div class="media align-items-center">
+                                        <div class="media-body ml-3"><strong class="h6">{{ favorite_item.product.title }}</strong></div>
+                                    </div>
+                                </th>
+                                <td class="align-middle border-0">
+                                    <p class="mb-0 small">Ksh.{{ favorite_item.product.price }}</p>
+                                </td>
+                                <td class="align-middle border-0">
+                                    <a href="#" class="btn btn-sm btn-outline-danger">Remove from Favorites</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <div class="text-center py-5">
+        <h3 class="mb-3">Your favorites list is empty.</h3>
+        <a href="{% url 'jersey_app:home' %}"><i class="fas fa-long-arrow-alt-left mr-2"></i>Continue shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -55,44 +55,54 @@
 
             {% if products %}
               {% for product in products %}
-              
-                <!-- PRODUCT-->
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                  <div class="product text-center">
-                    <div class="position-relative mb-3">
-
-                      <div class="badge text-white badge-"></div>
-                      
-                      <a class="d-block" href="{% url 'jersey_app:product-detail' product.slug %}">
-                        {% if product.product_image %}
-                          <img class="img-fluid w-100" src="{{ product.product_image.url }}" alt="{{product.title}}">
-                        {% else %}
-                          <img class="img-fluid w-100" src="{% static 'img/product-1.jpg' %}" alt="{{product.title}}">
-                        {% endif %}
-                      </a>
-
-                      <div class="product-overlay">
-                        <ul class="mb-0 list-inline">
-                          <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          <li class="list-inline-item m-0 p-0">
-                            {% comment %} <a class="btn btn-sm btn-dark" href="{% url 'jersey_app:add-to-cart' %}">Add to cart</a> {% endcomment %}
-
-                            <form action="{% url 'jersey_app:add-to-cart' %}">
-                              <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
-                              <button type="submit" class="btn btn-sm btn-dark">Add to Cart</button>
-                            </form>
-
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <h6> <a class="reset-anchor" href="detail.html">{{ product.title }}</a></h6>
-                    <p class="small text-muted">${{product.price}}</p>
-                  </div>
+    
+      <!-- PRODUCT-->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="product text-center">
+          <div class="mb-3 position-relative product-container">
+            <!-- Product Image -->
+            <a class="d-block" href="{% url 'jersey_app:product-detail' product.slug %}">
+              {% if product.product_image %}
+                <div class="product-image-container">
+                  <img class="img-fluid product-image" src="{{product.product_image.url}}" alt="{{product.title}}">
                 </div>
+              {% else %}
+                <div class="product-image-container">
+                  <img class="img-fluid product-image" src="{% static 'img/product-1.jpg' %}" alt="{{product.title}}">
+                </div>
+              {% endif %}
+            </a>
 
-              {% endfor %}
-            {% endif %}
+            <div class="product-overlay">
+              <!-- Product Actions (e.g., add to cart, favorite) -->
+              <ul class="mb-0 list-inline">
+                <li class="list-inline-item m-0 p-0">
+                  <!-- Use a link with an onclick event to trigger the add_to_favorites function -->
+                  
+                  <a class="btn btn-sm btn-outline-dark" href="#" onclick="add_to_favorites('{{ product.id }}')">
+                    <i class="far fa-heart"></i>
+                </a>           
+                         
+                
+              </li>
+                <li class="list-inline-item m-0 p-0">
+                  <form action="{% url 'jersey_app:add-to-cart' %}">
+                    <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
+                    <button type="submit" class="btn btn-sm btn-dark">Add to Cart</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Product Title -->
+          <h6 class="mt-2"><a class="reset-anchor" href="{% url 'jersey_app:product-detail' product.slug %}">{{product.title}}</a></h6>
+          <!-- Product Price -->
+          <p class="small text-muted">Ksh.{{product.price}}</p>
+        </div>
+      </div>
+
+    {% endfor %}
+  {% endif %}
 
             
 
@@ -154,7 +164,7 @@
             <div class="row">
               <div class="col-lg-6 mb-3 mb-lg-0">
                 <h5 class="text-uppercase">Let's be friends!</h5>
-                <p class="text-small text-muted mb-0">Nisi nisi tempor consequat laboris nisi.</p>
+                <p class="text-small text-muted mb-0">Subscribe to receive latest updates.</p>
               </div>
               <div class="col-lg-6">
                 <form action="#">
