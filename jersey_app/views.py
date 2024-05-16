@@ -260,7 +260,7 @@ def cart(request):
 
     # Calculate total amount
     amount = decimal.Decimal(0)
-    shipping_amount = decimal.Decimal(10)
+    shipping_amount = decimal.Decimal(500)
     for cart_product in cart_products:
         temp_amount = cart_product.quantity * cart_product.product.price
         amount += temp_amount
