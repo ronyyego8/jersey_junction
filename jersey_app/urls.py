@@ -20,12 +20,17 @@ urlpatterns = [
     path('favorites/', views.favorites, name='favorites'),    
     path('checkout/', views.checkout, name="checkout"),
     path('orders/', views.orders, name="orders"),
+    path('process_cod/', views.process_cod, name='process_cod'),
+    path('mpesa-payment/', views.initiate_payment, name="mpesa-payment"),
+    path('mpesa-callback/', views.mpesa_callback, name="mpesa-callback"),    
 
 
     #URL for Products
     path('product/<slug:slug>/', views.detail, name="product-detail"),   
+    path('all-products/', views.all_products, name="all-products"),
     path('categories/', views.all_categories, name="all-categories"),
     path('<slug:slug>/', views.category_products, name="category-products"),
+    
   
 
     path('shop/', views.shop, name="shop"),

@@ -11,14 +11,17 @@
               <div class="row m-sm-0">
                 
                 <div class="col-sm-12 order-1 order-sm-2">
-                  <div class="owl-carousel product-slider" data-slider-id="1">
-                    {% if product.product_image %}
-                      <a class="d-block" href="{{product.product_image.url}}" data-lightbox="product" title="{{product.title}}"><img class="img-fluid" src="{{product.product_image.url}}" alt="{{product.title}}"></a>
-                      {% else %}
-                      <a class="d-block" href="{% static 'img/product-detail-1.jpg' %}" data-lightbox="product" title="{{product.title}}"><img class="img-fluid" src="{% static 'img/product-detail-1.jpg' %}" alt="{{product.title}}"></a>
-                    {% endif %}
-                  </div>
+                  {% if product.product_image %}
+                    <a class="d-block" href="{{ product.product_image.url }}" data-lightbox="product" title="{{ product.title }}">
+                      <img class="img-fluid" src="{{ product.product_image.url }}" alt="{{ product.title }}" style="max-width:60%; height: auto;">
+                    </a>
+                  {% else %}
+                    <a class="d-block" href="{% static 'img/product-detail-1.jpg' %}" data-lightbox="product" title="{{ product.title }}">
+                      <img class="img-fluid" src="{% static 'img/product-detail-1.jpg' %}" alt="{{ product.title }}">
+                    </a>
+                  {% endif %}
                 </div>
+                
               </div>
             </div>
             <!-- PRODUCT DETAILS-->
@@ -31,7 +34,7 @@
                 <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
               </ul>
               <h1>{{product.title}}</h1>
-              <p class="text-muted lead">${{product.price}}</p>
+              <p class="text-muted lead">Ksh.{{product.price}}</p>
               <p class="text-small mb-4">{{product.short_description}}</p>
 
               <div class="row align-items-stretch mb-4">
@@ -39,9 +42,9 @@
                 <div class="col-sm-5 pr-sm-0">
                   <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
                     <div class="quantity">
-                      <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                      <input name="quantity" class="form-control border-0 shadow-0 p-0" type="text" value="1">
-                      <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                      <a href="#" class="dec-btn p-0 ml-2"><i class="fas fa-minus"></i></a>
+                      <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="{{cart_product.quantity}}" id="quantity-input"/>
+                      <a href="#" class="inc-btn p-0"><i class="fas fa-plus"></i></a>
                     </div>
                   </div>
                 </div>
@@ -49,7 +52,7 @@
                 <div class="col-sm-3 pl-sm-0">
                   {% comment %} <a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="{% url 'store:add-to-cart' %}">Add to cart</a> {% endcomment %}
                   
-                  <form action="{% url 'store:add-to-cart' %}">
+                  <form action="{% url 'jersey_app:add-to-cart' %}">
                     <input type="hidden" name="prod_id" value="{{product.id}}" id="product_id">
                     <button type="submit" class="btn btn-dark btn-lg btn-block h-100 d-flex align-items-center justify-content-center px-0">Add to Cart</button>
                   </form>
@@ -59,7 +62,7 @@
               </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a><br>
               <ul class="list-unstyled small d-inline-block">
                 <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">SKU:</strong><span class="ml-2 text-muted">{{product.sku}}</span></li>
-                <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ml-2" href="{% url 'store:category-products' product.category.slug %}">{{product.category}}</a></li>
+                <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ml-2" href="{% url 'jersey_app:category-products' product.category.slug %}">{{product.category}}</a></li>
                 <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Tags:</strong><a class="reset-anchor ml-2" href="#">Innovation</a></li>
               </ul>
             </div>
@@ -80,10 +83,10 @@
               <div class="p-4 p-lg-5 bg-white">
                 <div class="row">
                   <div class="col-lg-8">
-                    <div class="media mb-3"><img class="rounded-circle" src="{% static 'img/customer-1.png' %}" alt="" width="50">
+                    <div class="media mb-3"><img class="rounded-circle" src="{% static 'img/' %}" alt="image" width="50">
                       <div class="media-body ml-3">
-                        <h6 class="mb-0 text-uppercase">Jason Doe</h6>
-                        <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
+                        <h6 class="mb-0 text-uppercase">Jane Lakisher</h6>
+                        <p class="small text-muted mb-0 text-uppercase">20 April 2024</p>
                         <ul class="list-inline mb-1 text-xs">
                           <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
                           <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
@@ -91,13 +94,13 @@
                           <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
                           <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
                         </ul>
-                        <p class="text-small mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="text-small mb-0 text-muted">Review 1</p>
                       </div>
                     </div>
-                    <div class="media"><img class="rounded-circle" src="{% static 'img/customer-2.png' %}" alt="" width="50">
+                    <div class="media"><img class="rounded-circle" src="{% static 'img/' %}" alt="image2" width="50">
                       <div class="media-body ml-3">
-                        <h6 class="mb-0 text-uppercase">Jason Doe</h6>
-                        <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
+                        <h6 class="mb-0 text-uppercase">Brian Kamau</h6>
+                        <p class="small text-muted mb-0 text-uppercase">24 April 2024</p>
                         <ul class="list-inline mb-1 text-xs">
                           <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
                           <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
@@ -105,7 +108,7 @@
                           <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
                           <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
                         </ul>
-                        <p class="text-small mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="text-small mb-0 text-muted">Review 2</p>
                       </div>
                     </div>
                   </div>
@@ -126,7 +129,7 @@
                 <div class="col-lg-3 col-sm-6">
                   <div class="product text-center skel-loader">
                     <div class="d-block mb-3 position-relative">
-                      <a class="d-block" href="{% url 'store:product-detail' rp.slug %}">
+                      <a class="d-block" href="{% url 'jersey_app:product-detail' rp.slug %}">
                         {% if rp.product_image %}
                           <img class="img-fluid w-100" src="{{rp.product_image.url}}" alt="{{rp.title}}">
                         {% else %}
@@ -137,12 +140,12 @@
                       <div class="product-overlay">
                         <ul class="mb-0 list-inline">
                           <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'store:add-to-cart' %}">Add to cart</a></li>
+                          <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'jersey_app:add-to-cart' %}">Add to cart</a></li>
                         </ul>
                       </div>
                     </div>
-                    <h6> <a class="reset-anchor" href="{% url 'store:product-detail' rp.slug %}">{{rp.title}}</a></h6>
-                    <p class="small text-muted">${{rp.price}}</p>
+                    <h6> <a class="reset-anchor" href="{% url 'jersey_app:product-detail' rp.slug %}">{{rp.title}}</a></h6>
+                    <p class="small text-muted">Ksh.{{rp.price}}</p>
                   </div>
                 </div>
 
@@ -154,4 +157,48 @@
           </div>
         </div>
       </section>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const decrementButton = document.querySelector('.dec-btn');
+          const incrementButton = document.querySelector('.inc-btn');
+          const quantityInput = document.getElementById('quantity-input');
+          const form = document.getElementById('myform'); 
+      
+          // Set default value to 1 when the DOM content is loaded
+          quantityInput.value = 1;
+      
+          // Function to validate the input value as an integer
+          function validateInputValue() {
+              const parsedValue = parseInt(quantityInput.value);
+              if (!isNaN(parsedValue)) {
+                  return parsedValue;
+              } else {
+                  return 1; // Default to 1 
+              }
+          }
+      
+          decrementButton.addEventListener('click', function(event) {
+              event.preventDefault();
+              const currentValue = validateInputValue();
+              if (currentValue > 1) {
+                  quantityInput.value = currentValue - 1;
+              }
+          });
+      
+          incrementButton.addEventListener('click', function(event) {
+              event.preventDefault();
+              const currentValue = validateInputValue();
+              quantityInput.value = currentValue + 1;
+          });
+      
+          // Add event listener for form submission
+          form.addEventListener('submit', function(event) {
+              // Set the form input value to the current quantity value
+              form.querySelector('[name="quantity"]').value = quantityInput.value;
+          });
+      });
+      
+      
+      </script>
       {% endblock content %}
